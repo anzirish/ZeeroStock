@@ -18,6 +18,10 @@ const products = [
     { id: 10, product_name: "Backpack", category: "Accessories", price: 60 }
 ];
 
+app.get("/", (req, res) => {
+  res.status(200).json({ success: true, message: "Server is running" });
+});
+
 app.get("/search", (req, res) => {
   try {
     let results = [...products];

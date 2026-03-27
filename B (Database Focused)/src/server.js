@@ -7,6 +7,10 @@ import { inventoryRouter } from "./routes/inventoryRoutes.js"
 const app = express()
 app.use(express.json()) 
 
+app.get("/", (req, res) => {
+  res.status(200).json({ success: true, message: "Server is running" });
+});
+
 app.use("/supplier", supplierRouter)  
 app.use("/inventory", inventoryRouter) 
 
