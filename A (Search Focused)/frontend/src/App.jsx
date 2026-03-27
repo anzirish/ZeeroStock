@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import "./App.css";
+import ProductTable from "./components/ProductTable";
 
 function App() {
   const [products, setProducts] = useState([]);
@@ -37,7 +38,7 @@ function App() {
   };
 
   useEffect(() => {
-    loadProducts(); // fetch all products on initial mount
+    loadProducts(); // fetch all products
   }, []);
 
   // updates filters 
@@ -48,25 +49,13 @@ function App() {
   return (
     <>
       <h1>Zeerostock</h1>
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "1fr 1fr",
-          gap: "5px",
-          marginBottom: "10px",
-        }}
-      >
+      <div className="filters-grid">
         <input
           placeholder="Enter product name"
           name="q"
           onChange={handleChange}
-          style={{ padding: "8px" }}
         />
-        <select
-          name="category"
-          onChange={handleChange}
-          style={{ padding: "8px" }}
-        >
+        <select name="category" onChange={handleChange}>
           <option value="">Select category</option>
           <option value="Electronics">Electronics</option>
           <option value="Furniture">Furniture</option>
@@ -79,7 +68,6 @@ function App() {
           onChange={handleChange}
           type="number"
           min={0}
-          style={{ padding: "8px" }}
         />
         <input
           placeholder="Max price"
@@ -87,47 +75,14 @@ function App() {
           onChange={handleChange}
           type="number"
           min={0}
-          style={{ padding: "8px" }}
         />
       </div>
-      <button
-        style={{ padding: "8px", width: "100%", backgroundColor: "blueviolet" }}
-        onClick={loadProducts}
-      >
+      <button className="search-btn" onClick={loadProducts}>
         Search products
       </button>
       {loading && <p>Loading...</p>}
-      {error && <p style={{ color: "red" }}>{error}</p>}
-      {!loading &&
-        !error &&
-        (products.length === 0 ? (
-          <p>No products found</p>
-        ) : (
-          <table
-            style={{
-              width: "100%",
-              borderCollapse: "collapse",
-              textAlign: "left",
-            }}
-          >
-            <thead>
-              <tr>
-                <th style={{ width: "33%", padding: "8px" }}>Name</th>
-                <th style={{ width: "33%", padding: "8px" }}>Category</th>
-                <th style={{ width: "33%", padding: "8px" }}>Price</th>
-              </tr>
-            </thead>
-            <tbody>
-              {products.map((item) => (
-                <tr key={item.id}>
-                  <td style={{ padding: "8px" }}>{item.product_name}</td>
-                  <td style={{ padding: "8px" }}>{item.category}</td>
-                  <td style={{ padding: "8px" }}>{item.price}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        ))}
+      {error && <p className="error">{error}</p>}
+      {!loading && !error && <ProductTable products={products} />}
     </>
   );
 }
