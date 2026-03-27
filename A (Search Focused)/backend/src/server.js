@@ -3,7 +3,7 @@ import cors from "cors"
 
 const app = express()
 app.use(cors({}))
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 
 const products = [
     { id: 1, product_name: "Laptop", category: "Electronics", price: 800 },

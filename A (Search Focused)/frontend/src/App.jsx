@@ -11,7 +11,7 @@ function App() {
     minPrice: "",
     maxPrice: "",
   });
-  const APIurl = "http://localhost:5000/search";
+  const APIurl = `${import.meta.env.VITE_API_URL}/search`;
 
   const loadProducts = async () => {
     if (
